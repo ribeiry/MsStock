@@ -1,7 +1,6 @@
-from fastapi import FastAPI, APIRouter
+from fastapi import FastAPI
 from mangum import Mangum
-from servicesStock import router as book_router
-import logging
+from service.servicesStock import router as book_router
 from dotenv import dotenv_values
 from pymongo import MongoClient
 import logging
@@ -9,7 +8,10 @@ import logging
 config = dotenv_values(".env")
 
 # SetUp loggers
-logging.config.fileConfig('logging.conf', disable_existing_loggers=False)
+#logging.config.fileConfig('./logging.conf', disable_existing_loggers=False)
+
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+
 
 # get root loggers
 logger = logging.getLogger(__name__)

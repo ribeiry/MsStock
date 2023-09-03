@@ -22,16 +22,6 @@ class Product(BaseModel):
     #            "status": "Recolhido"
     #        }
     #    }
-        
-class StockUpdate(BaseModel):
-    status: Optional[str]  
-    class Config:
-        schema_extra = {
-            "example": {
-                "qtde": 2,
-                "status": "separado"
-            }
-        }
 
 
 

@@ -1,13 +1,12 @@
-import json
-import uuid
-
 from fastapi import APIRouter, Body, Request, Response, HTTPException, status
 from fastapi.encoders import jsonable_encoder
 from typing import List
 import logging
-from model import Product, StockUpdate
+from model.model import Product
 
-logging.config.fileConfig('logging.conf', disable_existing_loggers=False)
+#logging.config.fileConfig('logging.conf', disable_existing_loggers=False)
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+
 logger = logging.getLogger(__name__)
 
 router = APIRouter()
