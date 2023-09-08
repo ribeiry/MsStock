@@ -1,17 +1,16 @@
 import uuid
-from typing import Optional
 from pydantic import BaseModel, Field
-#from pydantic import BaseModel,Field
+
 
 class Product(BaseModel):
-    id: str=Field(default_factory=uuid.uuid4, alias="_id")
-    nome: str 
-    type: str 
+    id: str = Field(default_factory=uuid.uuid4, alias="_id")
+    nome: str
+    type: str
     qtde: int
     cost: float
     status: str
 
-    #class Config:
+    # class Config:
     #    allow_population_by_field_name= True
     #    schema_extra = {
     #        "example": {
@@ -23,16 +22,3 @@ class Product(BaseModel):
     #            "status": "Recolhido"
     #        }
     #    }
-        
-class StockUpdate(BaseModel):
-    status: Optional[str]  
-    class Config:
-        schema_extra = {
-            "example": {
-                "qtde": 2,
-                "status": "separado"
-            }
-        }
-
-
-
