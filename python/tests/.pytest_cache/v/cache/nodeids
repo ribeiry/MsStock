@@ -1,4 +1,5 @@
 [
   "test_stock.py::test_create_product",
+  "test_stock.py::test_get_product",
   "test_stock.py::test_root"
 ]
