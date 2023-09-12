@@ -14,5 +14,6 @@ app = FastAPI()
 def root():
     return {"message": "Welcome  Stock application !"}
 
+
 app.include_router(book_router, tags=["stock"], prefix="/stock")
 handler = Mangum(app=app)

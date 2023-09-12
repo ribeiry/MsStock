@@ -1,3 +1,4 @@
+
 import sqlite3
 from python.database.DatabaseMock import DatabaseMock
 import pytest
@@ -26,6 +27,7 @@ DatabaseMock = DatabaseMock(DatabaseMock)
 def cache(session): # 1
     return
 
+
 def test_root():
     """
         Test an endpoint root of package manager
@@ -40,6 +42,7 @@ def test_get_product():
         Test get a product for an id
     :return: a product
     """
+
     id = "066de609-b04a-4b30-b46c-32537c7f1f6e"
     resp = client.get(f"/stock/{id}")
     assert resp.status_code == 200
@@ -60,10 +63,12 @@ def test_get_all_product(session):
 
 @pytest.mark.usefixtures("setup_db")
 def test_create_product(session):
+
     """
         Test create a product in the stock
     :return: id of product created
     """
+
     DatabaseMock.__init__(session)
     Product.id     = "066de609-b04a-4b30-b46c-32537c7f1f6e"
     Product.nome   = "Samsung TV 53"
@@ -75,4 +80,3 @@ def test_create_product(session):
         DatabaseMock.save_status(Product)
         existing = DatabaseMock.get_product(Product.id)
         assert existing
-
