@@ -1,30 +1,27 @@
 import logging
 from model.model import Product
 from fastapi import FastAPI
-from pymongo import MongoClient
-from dotenv import dotenv_values
 
-config = dotenv_values(".env")
+from database.database import Database
+
+
+
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
 logger = logging.getLogger(__name__)
 
 app = FastAPI()
 
+
 class ServiceStock:
 
     def __int__(self):
         self = self
 
-    def startup_db_client(self):
-        logger.info("logging from the startup_db_client")
-        client = MongoClient(config["DB_URI"])
-        database = client[config["DB_NAME"]]
-        logger.info("Connected to the MongoDB database !")
-        return database
 
     def create_product(self,product: Product):
-        new_package = self.startup_db_client()["stock"].insert_one(product)
+        new_package = db.startup_db_client()["stock"].insert_one(product)
+
         created_product = self.find_product_byid(new_package.inserted_id)
         logger.info('The package id is')
 
@@ -32,13 +29,17 @@ class ServiceStock:
 
     def list_allproducts(self):
 
-        products = list(self.startup_db_client()["stock"].find(limit=1000))
+
+        products = list(db.startup_db_client()["stock"].find(limit=1000))
+
         logger.info('routes.py.list_products')
         return products
 
     def find_product_byid(self,id:str):
         logger.info('servicestock.py.find_product_byid' + id)
-        if (product := self.startup_db_client()["stock"].find_one({"_id": id})) is not None:
+
+        if (product := db.startup_db_client()["stock"].find_one({"_id": id})) is not None:
+
             logger.info('routes.py.list_a_product.id' + id)
             return product
         return ""
@@ -55,7 +56,9 @@ class ServiceStock:
                 product["qtde"] -= qtde_product
                 product["status"] = "Indisponivel"
             logger.info(product)
-            update_result = self.startup_db_client()["stock"].update_one(
+
+            update_result = db.startup_db_client()["stock"].update_one(
+
                 {"_id": id}, {"$set": product}
             )
             logger.info(update_result)
@@ -74,7 +77,9 @@ class ServiceStock:
             product["qtde"] = qtde_product + qtde
             product["status"] = "Disponivel"
             logger.info(product)
-            self.startup_db_client()["stock"].update_one(
+
+            db.startup_db_client()["stock"].update_one(
+
                 {"_id": id}, {"$set": product}
             )
             update_result = self.find_product_byid(id)
