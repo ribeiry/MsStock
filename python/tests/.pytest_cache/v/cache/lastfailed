@@ -1,5 +1,4 @@
 {
-
   "test_stock.py::test_get_product": true,
   "test_stock.py": true
 }
