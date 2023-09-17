@@ -43,10 +43,12 @@ class ServiceStock:
             qtde_product = product["qtde"]
         if qtde >= 1:
             if qtde_product >= qtde:
+                if(qtde_product == qtde):
+                    product["status"] = "Indisponivel"
                 product["qtde"] = qtde_product - qtde
             else:
-                product["qtde"] -= qtde_product
-                product["status"] = "Indisponivel"
+                logger.info("Returning Product CODE -1")
+                return -1
             logger.info(product)
             update_result = db.startup_db_client()["stock"].update_one(
                 {"_id": id}, {"$set": product}

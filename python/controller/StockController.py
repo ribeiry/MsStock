@@ -42,11 +42,16 @@ async def list_a_product(id: str):
 @router.put("/{id}/sub", response_description="Take a Product a Stock", status_code=status.HTTP_200_OK, response_model=Product)
 async def update_stock(id: str, request: Request):
     qtde = int(request.headers.get('x-qtde'))
-    logger.info('routes.py.update_stock.id' + id)
+    logger.info('StockController.py.update_stock.id' + id)
     new_qtde = servico_estoque.take_product(id, qtde)
-    if (new_qtde != 0) is not None:
+    logger.info('StockController.py.update_stock.new_qtde')
+    if (new_qtde == -1):
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Product with ID: {id} don`t have qtde")
+    elif (new_qtde != 0) is not None:
         return new_qtde
-    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Product with {id} not found")
+    else:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Product with ID: {id} not found")
+
 
 
 @router.put("/{id}/add", response_description="Return a Product a Stock", status_code=status.HTTP_200_OK, response_model=Product)
