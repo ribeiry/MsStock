@@ -3,13 +3,13 @@ from model.model import Product
 from fastapi import FastAPI
 from database.database import Database
 
-
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
 logger = logging.getLogger(__name__)
 
 app = FastAPI()
 db = Database()
+
 
 class ServiceStock:
 
@@ -24,7 +24,6 @@ class ServiceStock:
         return created_product
 
     def list_allproducts(self):
-
         products = list(db.startup_db_client()["stock"].find(limit=1000))
         logger.info('routes.py.list_products')
         return products
@@ -43,13 +42,12 @@ class ServiceStock:
             qtde_product = product["qtde"]
         if qtde >= 1:
             if qtde_product >= qtde:
-                if(qtde_product == qtde):
-                    product["status"] = "Indisponivel"
                 product["qtde"] = qtde_product - qtde
             else:
-                logger.info("Returning Product CODE -1")
-                return -1
+                product["qtde"] -= qtde_product
+                product["status"] = "Indisponivel"
             logger.info(product)
+
             update_result = db.startup_db_client()["stock"].update_one(
                 {"_id": id}, {"$set": product}
             )

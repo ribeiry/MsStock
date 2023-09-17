@@ -15,6 +15,7 @@ servico_estoque = ServiceStock()
 
 @router.post("/", response_description="Create a new product", status_code=status.HTTP_201_CREATED)
 async def create_product(product: Product):
+
     logger.info("create product method")
     pr = jsonable_encoder(product)
     logger.info('routes.py.create_package')
@@ -29,7 +30,6 @@ async def list_products():
     products = servico_estoque.list_allproducts()
     return products
 
-
 @router.get("/{id}", response_description="Get an Product in the Stock", status_code=status.HTTP_200_OK, response_model=Product)
 async def list_a_product(id: str):
     logger.info('routes.py.list_a_product.id' + id)
@@ -37,6 +37,7 @@ async def list_a_product(id: str):
     if product != "":
         return product
     raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Product with ID {id} not found")
+
 
 
 @router.put("/{id}/sub", response_description="Take a Product a Stock", status_code=status.HTTP_200_OK, response_model=Product)
