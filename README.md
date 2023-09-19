@@ -35,10 +35,10 @@ DB_NAME
 
 Para executar a aplicaçāo rode o seguinte comando
 
-``
+```
 python -m uvicorn main:app --reload
 
-``
+```
 
 ### 🔩 Analise os testes de ponta a ponta
 
