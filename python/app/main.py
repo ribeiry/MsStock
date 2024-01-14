@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from mangum import Mangum
-from controller.StockController import router as book_router
+from controller.StockController import router as controller_stock
 import logging
 
 
@@ -17,5 +17,5 @@ def root():
 
 
 
-app.include_router(book_router, tags=["stock"], prefix="/stock")
+app.include_router(controller_stock, tags=["stock"], prefix="/stock")
 handler = Mangum(app=app)
