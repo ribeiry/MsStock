@@ -35,6 +35,7 @@ DB_NAME
 
 Para executar a aplicaçāo rode o seguinte comando
 
+
 ```
 python -m uvicorn main:app --reload
 
@@ -91,6 +92,3 @@ Este projeto está sob a licença (sua licença) - veja o arquivo [LICENSE.md](h
 * Convide alguém da equipe para uma cerveja 🍺;
 * Um agradecimento publicamente 🫂;
 
-
-
----
