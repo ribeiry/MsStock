@@ -1,8 +1,8 @@
-from app.utils.logger import Logger
 from database.database import Database
 from fastapi import FastAPI
 from model.model import Product
 
+from app.utils.logger import Logger
 
 app = FastAPI()
 db = Database()
@@ -27,9 +27,7 @@ class ServiceStock:
 
     def find_product_byid(self, id: str):
         self.__logger.info("servicestock.py.find_product_byid" + id)
-        if (
-            product := db.startup_db_client()["stock"].find_one({"_id": id})
-        ) is not None:
+        if (product := db.startup_db_client()["stock"].find_one({"_id": id})) is not None:
             self.__logger.info("routes.py.list_a_product.id" + id)
             return product
         return ""
@@ -47,9 +45,7 @@ class ServiceStock:
                 product["status"] = "Indisponivel"
             self.__logger.info(product)
 
-            update_result = db.startup_db_client()["stock"].update_one(
-                {"_id": id}, {"$set": product}
-            )
+            update_result = db.startup_db_client()["stock"].update_one({"_id": id}, {"$set": product})
             self.__logger.info(update_result)
         if (new_qtde := self.find_product_byid(id)) is not None:
             self.__logger.info(new_qtde)

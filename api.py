@@ -1,7 +1,7 @@
+import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pyctuator.pyctuator import Pyctuator
-import uvicorn
 
 from app.utils.setting import Settings
 

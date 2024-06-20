@@ -6,9 +6,7 @@ from fastapi.encoders import jsonable_encoder
 from model.model import Product
 from service.servicesStock import ServiceStock
 
-logging.basicConfig(
-    level=logging.DEBUG, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
-)
+logging.basicConfig(level=logging.DEBUG, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 
 logger = logging.getLogger(__name__)
 
@@ -54,9 +52,7 @@ async def list_a_product(id: str):
     product = servico_estoque.find_product_byid(id)
     if product != "":
         return product
-    raise HTTPException(
-        status_code=status.HTTP_404_NOT_FOUND, detail=f"Product with ID {id} not found"
-    )
+    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Product with ID {id} not found")
 
 
 @router.put(
@@ -97,6 +93,4 @@ async def add_stock(id: str, request: Request):
     logger.info("product add in the stock")
     if product_stock != "error":
         return product_stock
-    raise HTTPException(
-        status_code=status.HTTP_404_NOT_FOUND, detail=f"Package with ID not found"
-    )
+    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Package with ID not found")

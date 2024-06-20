@@ -50,9 +50,7 @@ class Logger:
     def __format_message(self, msg, additional_info, add_traceback=False):
         formatted_message = msg
         if add_traceback:
-            formatted_message = (
-                f"{formatted_message} - ## TRACEBACK ## - {traceback.format_exc()}"
-            )
+            formatted_message = f"{formatted_message} - ## TRACEBACK ## - {traceback.format_exc()}"
         if additional_info is not None:
             formatted_message = f"{formatted_message} - ## ADDITIONAL INFO ## - {json.dumps(additional_info)}"
 

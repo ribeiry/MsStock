@@ -3,8 +3,8 @@ import logging
 from fastapi import FastAPI
 from pymongo import MongoClient
 
-from app.utils.setting import Settings
 from app.utils.logger import Logger
+from app.utils.setting import Settings
 
 
 class Database:
