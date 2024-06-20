@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: orderservices
+  namespace:
+  labels:
+    name: redis
+spec:
+  containers:
+    - name: orderservice
+      image: docker.io/library/orderservices:latest
+      imagePullPolicy: IfNotPresent

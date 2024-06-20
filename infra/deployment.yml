@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: msStock
+  name: msStock
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: msStock
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: msStock
+    spec:
+      containers:
+      - image: docker.io/library/msStock:latest
+        imagePullPolicy: IfNotPresent
+        name: msStock
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      terminationGracePeriodSeconds: 30
